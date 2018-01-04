@@ -36,13 +36,13 @@
  *
  */
 
-#define EEPROM_VERSION "V47"
+#define EEPROM_VERSION "V48"
 
 // Change EEPROM version if these are changed:
 #define EEPROM_OFFSET 100
 
 /**
- * V47 EEPROM Layout:
+ * V48 EEPROM Layout:
  *
  *  100  Version                                    (char x4)
  *  104  EEPROM CRC16                               (uint16_t)
@@ -174,9 +174,10 @@
  *  714  M852 I    planner.xy_skew_factor           (float)
  *  718  M852 J    planner.xz_skew_factor           (float)
  *  722  M852 K    planner.yz_skew_factor           (float)
+ *  726            zmax_pos_calc                    (float)
  *
- *  726                                   Minimum end-point
- * 2255 (726 + 208 + 36 + 9 + 288 + 988)  Maximum end-point
+ *  730                                   Minimum end-point
+ * 2259 (730 + 208 + 36 + 9 + 288 + 988)  Maximum end-point
  *
  * ========================================================================
  * meshes_begin (between max and min end-point, directly above)
@@ -724,6 +725,8 @@ void MarlinSettings::postprocess() {
       dummy = 0.0f;
       for (uint8_t q = 3; q--;) EEPROM_WRITE(dummy);
     #endif
+    
+    EEPROM_WRITE(zmax_pos_calc);
 
     if (!eeprom_error) {
       const int eeprom_size = eeprom_index;
@@ -1178,7 +1181,7 @@ void MarlinSettings::postprocess() {
         uint32_t dummyui32;
         for (uint8_t q = 3; q--;) EEPROM_READ(dummyui32);
       #endif
-
+      
       //
       // CNC Coordinate System
       //
@@ -1206,6 +1209,8 @@ void MarlinSettings::postprocess() {
       #else
         for (uint8_t q = 3; q--;) EEPROM_READ(dummy);
       #endif
+      
+      EEPROM_READ(zmax_pos_calc);       
 
       if (working_crc == stored_crc) {
         postprocess();
@@ -1603,7 +1608,7 @@ void MarlinSettings::reset() {
     for (uint8_t q = 3; q--;)
       stepper.digipot_current(q, (stepper.motor_current_setting[q] = tmp_motor_current_setting[q]));
   #endif
-
+  
   #if ENABLED(SKEW_CORRECTION_GCODE)
     planner.xy_skew_factor = XY_SKEW_FACTOR;
     #if ENABLED(SKEW_CORRECTION_FOR_Z)
@@ -1612,6 +1617,8 @@ void MarlinSettings::reset() {
     #endif
   #endif
 
+  zmax_pos_calc=Z_MAX_POS;  
+  
   postprocess();
 
   #if ENABLED(EEPROM_CHITCHAT)
@@ -1665,6 +1672,8 @@ void MarlinSettings::reset() {
       #endif
 
     #endif
+
+    SERIAL_ECHOPAIR("  Calculated Zmax", zmax_pos_calc);
 
     SERIAL_EOL();
 

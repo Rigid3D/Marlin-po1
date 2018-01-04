@@ -614,6 +614,11 @@ void lcd_kill_screen() {
   lcd_printPGM(PSTR(MSG_PLEASE_RESET));
 }
 
+void lcd_kill_screen() {
+  lcd.setCursor(0, 0);
+  lcd_printPGM(PSTR(MSG_POWER_FAILURE_SHUTDOWN));
+}
+
 FORCE_INLINE void _draw_axis_label(const AxisEnum axis, const char* const pstr, const bool blink) {
   if (blink)
     lcd_printPGM(pstr);

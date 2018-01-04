@@ -723,6 +723,18 @@ void kill_screen(const char* lcd_msg) {
   lcd_kill_screen();
 }
 
+void power_failure_screen() {
+  lcd_init();
+  #if ENABLED(DOGLCD)
+    u8g.firstPage();
+    do {
+      lcd_power_failure_screen();
+    } while (u8g.nextPage());
+  #else
+    lcd_power_failure_screen();
+  #endif
+}
+
 #if ENABLED(ULTIPANEL)
 
   /**
@@ -994,6 +1006,11 @@ void kill_screen(const char* lcd_msg) {
           else
             MENU_ITEM(function, MSG_RESUME_PRINT, lcd_sdcard_resume);
           MENU_ITEM(function, MSG_STOP_PRINT, lcd_sdcard_stop);
+
+          #if ENABLED(POWER_FAILURE_FEATURE)
+            MENU_ITEM(gcode, MSG_STOP_RECORD_PRINT, PSTR("M822"));
+          #endif
+
         }
         else {
           MENU_ITEM(submenu, MSG_CARD_MENU, lcd_sdcard_menu);
@@ -1689,7 +1706,7 @@ void kill_screen(const char* lcd_msg) {
 
     /**
      * Level corners, starting in the front-left corner.
-     */
+ SUTAS    */   
     static int8_t bed_corner;
     void _lcd_goto_next_corner() {
       line_to_z(4.0);
@@ -1939,6 +1956,10 @@ void kill_screen(const char* lcd_msg) {
       //
       #if ENABLED(MESH_BED_LEVELING)
         MENU_ITEM_EDIT(float43, MSG_BED_Z, &mbl.z_offset, -1, 1);
+      #endif
+      
+      #if ENABLED(POWER_FAILURE_FEATURE)
+        MENU_ITEM(gcode, MSG_MEASURE_ZMAX, PSTR("M821"));
       #endif
 
       #if ENABLED(BABYSTEP_ZPROBE_OFFSET)

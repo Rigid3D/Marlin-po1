@@ -864,6 +864,15 @@
 #ifndef MSG_CASE_LIGHT
   #define MSG_CASE_LIGHT                      _UxGT("Case light")
 #endif
+#ifndef MSG_POWER_FAILURE_SHUTDOWN
+  #define MSG_POWER_FAILURE_SHUTDOWN          _UxGT("Please Turn Off!")
+#endif
+#ifndef MSG_MEASURE_ZMAX
+  #define MSG_MEASURE_ZMAX                    _UxGT("Measure Zmax Height")
+#endif
+#ifndef MSG_STOP_RECORD_PRINT
+  #define MSG_STOP_RECORD_PRINT               _UxGT("Stop & Save")
+#endif
 #ifndef MSG_CASE_LIGHT_BRIGHTNESS
   #define MSG_CASE_LIGHT_BRIGHTNESS           _UxGT("Light BRIGHTNESS")
 #endif

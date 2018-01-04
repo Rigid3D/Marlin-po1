@@ -52,6 +52,7 @@
   void lcd_status_printf_P(const uint8_t level, const char * const fmt, ...);
   void lcd_reset_alert_level();
   void lcd_kill_screen();
+  void power_failure_screen();
   void kill_screen(const char* lcd_msg);
   bool lcd_detected(void);
 

@@ -55,6 +55,10 @@ public:
   void stopSDPrint();
   void getStatus();
   void printingHasFinished();
+  
+  void openFile_PF();
+  void write_command_PF(char *buf);
+  void closefile_PF();
 
   #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
     void printLongPath(char *path);
@@ -151,6 +155,7 @@ private:
   Sd2Card card;
   SdVolume volume;
   SdFile file;
+  SdFile file_pf;
 
   #define SD_PROCEDURE_DEPTH 1
   #define MAXPATHNAMELENGTH (FILENAME_LENGTH*MAX_DIR_DEPTH + MAX_DIR_DEPTH + 1)
