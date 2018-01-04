@@ -36,7 +36,7 @@
  *
  */
 
-#define EEPROM_VERSION "V41"
+#define EEPROM_VERSION "V42"
 
 // Change EEPROM version if these are changed:
 #define EEPROM_OFFSET 100
@@ -161,9 +161,10 @@
  *  592  M907 X    Stepper XY current               (uint32_t)
  *  596  M907 Z    Stepper Z current                (uint32_t)
  *  600  M907 E    Stepper E current                (uint32_t)
+ *  604            zmax_pos_calc                    float
  *
- *  604                                Minimum end-point
- * 1925 (604 + 36 + 9 + 288 + 988)     Maximum end-point
+ *  608                                Minimum end-point
+ * 1929 (608 + 36 + 9 + 288 + 988)     Maximum end-point
  *
  * ========================================================================
  * meshes_begin (between max and min end-point, directly above)
@@ -644,6 +645,8 @@ void MarlinSettings::postprocess() {
       for (uint8_t q = 3; q--;) EEPROM_WRITE(dummyui32);
     #endif
 
+    EEPROM_WRITE(zmax_pos_calc);
+
     if (!eeprom_error) {
       const int eeprom_size = eeprom_index;
 
@@ -1003,6 +1006,8 @@ void MarlinSettings::postprocess() {
         uint32_t dummyui32;
         for (uint8_t q = 3; q--;) EEPROM_READ(dummyui32);
       #endif
+      
+      EEPROM_READ(zmax_pos_calc);      
 
       if (working_crc == stored_crc) {
         postprocess();
@@ -1357,6 +1362,8 @@ void MarlinSettings::reset() {
     for (uint8_t q = 3; q--;)
       stepper.digipot_current(q, (stepper.motor_current_setting[q] = tmp_motor_current_setting[q]));
   #endif
+  
+  zmax_pos_calc=Z_MAX_POS;
 
   #if ENABLED(AUTO_BED_LEVELING_UBL)
     ubl.reset();
@@ -1415,6 +1422,8 @@ void MarlinSettings::reset() {
       #endif
 
     #endif
+
+    SERIAL_ECHOPAIR("  Calculated Zmax", zmax_pos_calc);
 
     SERIAL_EOL();
 

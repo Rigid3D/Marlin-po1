@@ -207,6 +207,9 @@
 #define MSG_INFO_BAUDRATE                   _UxGT("İletişim Hızı")                                      // İletişim Hızı
 #define MSG_INFO_PROTOCOL                   _UxGT("Protokol")                                           // Protokol
 #define MSG_CASE_LIGHT                      _UxGT("Aydınlatmayı")                                       // Aydınlatmayı Aç
+#define MSG_POWER_FAILURE_SHUTDOWN          _UxGT("Cihazı Kapatınız!")                                  // Cihazı Kapatınız!
+#define MSG_MEASURE_ZMAX                    _UxGT("Zmax Ölç")                                           // Zmax Ölç
+#define MSG_STOP_RECORD_PRINT               _UxGT("Durdur & Kaydet")                                    // Durdur & Kaydet
 
 #if LCD_WIDTH >= 20
   #define MSG_INFO_PRINT_COUNT              _UxGT("Baskı Sayısı")                                       // Baskı Sayısı
@@ -228,9 +231,8 @@
 
 #define MSG_DRIVE_STRENGTH                  _UxGT("Sürücü Gücü")                                        // Sürücü Gücü
 #define MSG_DAC_PERCENT                     _UxGT("Sürücü %")                                           // Sürücü %
-#define MSG_FILAMENT_CHANGE_HEADER          _UxGT("PRINT PAUSED")
-#define MSG_FILAMENT_CHANGE_OPTION_HEADER   _UxGT("RESUME OPTIONS:")
-#define MSG_FILAMENT_CHANGE_OPTION_HEADER   _UxGT("Seçenekler:")                                        // Seçenekler:
+#define MSG_FILAMENT_CHANGE_HEADER          _UxGT("BASKI DURAKLATILDI")                                 // BASKI DURAKLATILDI
+#define MSG_FILAMENT_CHANGE_OPTION_HEADER   _UxGT("SEÇENEKLER:")                                        // Seçenekler:
 #define MSG_FILAMENT_CHANGE_OPTION_EXTRUDE  _UxGT("Daha Akıt")                                          // Daha Akıt
 #define MSG_FILAMENT_CHANGE_OPTION_RESUME   _UxGT("Baskıyı sürdür")                                     // Baskıyı sürdür
 #define MSG_FILAMENT_CHANGE_MINTEMP         _UxGT("Min. Sıcaklık")                                      // Min. Sıcaklık:

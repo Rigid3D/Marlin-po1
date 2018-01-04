@@ -37,7 +37,11 @@
    */
   #define X_MAX_LENGTH (X_MAX_POS - (X_MIN_POS))
   #define Y_MAX_LENGTH (Y_MAX_POS - (Y_MIN_POS))
-  #define Z_MAX_LENGTH (Z_MAX_POS - (Z_MIN_POS))
+  #define Z_MAX_LENGTH (zmax_pos_calc - (Z_MIN_POS))
+  
+  #define X_MAX_POSC X_MAX_POS
+  #define Y_MAX_POSC Y_MAX_POS
+  #define Z_MAX_POSC zmax_pos_calc  
 
   // Defined only if the sanity-check is bypassed
   #ifndef X_BED_SIZE
@@ -60,7 +64,7 @@
     #define X_CENTER ((X_BED_SIZE) / 2)
     #define Y_CENTER ((Y_BED_SIZE) / 2)
   #endif
-  #define Z_CENTER ((Z_MIN_POS + Z_MAX_POS) / 2)
+  #define Z_CENTER ((Z_MIN_POS + zmax_pos_calc) / 2)
 
   // Get the linear boundaries of the bed
   #define X_MIN_BED (X_CENTER - (X_BED_SIZE) / 2)
@@ -149,7 +153,7 @@
   #ifdef MANUAL_Z_HOME_POS
     #define Z_HOME_POS MANUAL_Z_HOME_POS
   #else
-    #define Z_HOME_POS (Z_HOME_DIR < 0 ? Z_MIN_POS : Z_MAX_POS)
+    #define Z_HOME_POS (Z_HOME_DIR < 0 ? Z_MIN_POS : zmax_pos_calc)
   #endif
 
   /**
@@ -606,7 +610,8 @@
 
   // Sensors
   #define HAS_FILAMENT_WIDTH_SENSOR (PIN_EXISTS(FILWIDTH))
-  #define HAS_FIL_RUNOUT (PIN_EXISTS(FIL_RUNOUT))
+  #define HAS_FIL_RUNOUT (PIN_EXISTS(FIL_RUNOUT))     
+  #define HAS_POWER_FAILURE (PIN_EXISTS(POWER_FAILURE)) 
 
   // User Interface
   #define HAS_HOME (PIN_EXISTS(HOME))

@@ -330,6 +330,19 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
 #endif
 
 /**
+ * Power Failure needs a pin, SD Support and Zmax Endstop
+ */
+#if ENABLED(POWER_FAILURE_FEATURE)
+  #if !HAS_POWER_FAILURE
+    #error "POWER_FAILURE_FEATURE requires POWER_FAILURE_PIN."
+  #elif DISABLED(SDSUPPORT)
+    #error "POWER_FAILURE_FEATURE requires SDSUPPORT."
+  #elif DISABLED(USE_ZMAX_PLUG)
+    #error "Zmax endstop is required for POWER_FAILURE_FEATURE.");
+  #endif
+#endif
+
+/**
  * Advanced Pause
  */
 #if ENABLED(ADVANCED_PAUSE_FEATURE)

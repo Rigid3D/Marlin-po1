@@ -346,6 +346,8 @@ extern float soft_endstop_min[XYZ], soft_endstop_max[XYZ];
   #define STOW_PROBE()
 #endif
 
+  extern float zmax_pos_calc;
+
 #if ENABLED(HOST_KEEPALIVE_FEATURE)
   extern MarlinBusyState busy_state;
   #define KEEPALIVE_STATE(n) do{ busy_state = n; }while(0)

@@ -371,6 +371,12 @@ void lcd_kill_screen() {
   lcd_printPGM(PSTR(MSG_PLEASE_RESET));
 }
 
+void lcd_power_failure_screen() {
+  lcd_setFont(FONT_MENU);
+  u8g.setPrintPos(0, u8g.getHeight()/4*2);
+  lcd_printPGM(PSTR(MSG_POWER_FAILURE_SHUTDOWN));
+}
+
 void lcd_implementation_clear() { } // Automatically cleared by Picture Loop
 
 //

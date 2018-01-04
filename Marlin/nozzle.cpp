@@ -224,7 +224,7 @@ void Nozzle::park(
 
       case 2: // Raise by Z-park height
         do_blocking_move_to_z(
-          (z + park.z > Z_MAX_POS) ? Z_MAX_POS : z + park.z);
+          (z + park.z > zmax_pos_calc) ? zmax_pos_calc : z + park.z);
         break;
 
       default: // Raise to Z-park height if lower
